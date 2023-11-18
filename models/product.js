@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(models.User, { // 2. User 모델에게 N:1 관계 설정을 합니다.
         targetKey: 'userId', // 3. User 모델의 userId 컬럼을
-        foreignKey: 'userId', // 4. Post 모델의 userId 컬럼과 연결합니다.
+        foreignKey: 'userId', // 4. Product 모델의 userId 컬럼과 연결합니다.
       });
     }
   }
@@ -32,5 +32,3 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Product;
 };
-
-

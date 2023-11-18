@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.Product, { // 2. Post 모델에게 1:N 관계 설정을 합니다.
+      this.hasMany(models.Product, { // 2. Product 모델에게 1:N 관계 설정을 합니다.
         sourceKey: 'userId', // 3. User 모델의 userId 컬럼을
-        foreignKey: 'userId', // 4. Post 모델의 userId 컬럼과 연결합니다.
+        foreignKey: 'userId', // 4. Product 모델의 userId 컬럼과 연결합니다.
       });
     }
   };
@@ -31,23 +31,3 @@ module.exports = (sequelize, DataTypes) => {
   });
   return User;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
