@@ -7,9 +7,6 @@ const { User } = require("../models/");
 // 암호화를 위한 준비
 const bcrypt = require("bcrypt");
 const salt = 12;
-// const crypto = require('crypto');
-// const salt = crypto.randomBytes(128).toString('base64');
-// crypto 모듈로 암호화하는 방법
 
 
 // 회원가입 비밀번호 조건
@@ -27,7 +24,6 @@ function checkEmail(str_email){
 // 회원가입 API
 router.post("/users", async (req,res)=> {
     const {email, name, password, confirmPassword} = req.body;
-    
     // checkEmail 함수를 이용한 이메일 조건을 만족하는가
     if(!checkEmail(email)){
         res.status(400).json({
@@ -49,7 +45,7 @@ router.post("/users", async (req,res)=> {
         });
         return;
     }
-    // MySQL 사용
+    // email 또는 name 포함하는 객체찾기
     const existUser = await User.findAll({
         where: {
           [Op.or]: [{ email }, { name }],
@@ -63,9 +59,6 @@ router.post("/users", async (req,res)=> {
     }
     // 비밀번호 암호화
     const hashPassword = bcrypt.hashSync(password, salt);
-    // const hashPassword = crypto.createHash('sha512').update(password + salt).digest('hex');
-    // crypto를 이용한 암호화
-
     // DB에 데이터를 삽입
     await User.create({ email, name, password: hashPassword });
     res.status(201).json({name, email, message: "회원가입을 축하드립니다."});
@@ -100,31 +93,4 @@ router.post ("/auth", async (req, res)=> {
 })
 
 
-
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-// // 회원 삭제 api
-// router.delete("/users/:userId/", async (req, res) => {
-//     const { userId } = req.params;
-//     const existsproduct = await User.findOne({where: {userId}});
-//     if (existsproduct === null) {
-//         res.status(400).json({ errorMessage: "회원 조회에 실패하였습니다." });
-//         return;
-//       }
-//    
-//     // Sequelize query 삭제
-//     await User.destroy({where: {userId}});
-//     res.status(200).json({ message: "성공적으로 삭제되었습니다." });
-//   });
-
-
