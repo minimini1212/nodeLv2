@@ -38,7 +38,7 @@ router.get("/products", async (req, res) => {
         attributes: ['name'],
       }
     ],
-    // 입력받은 key, value로 정렬하겠다.
+    // 입력받은 newSort로 정렬하겠다.
     order: [
       ["createdAt", newSort]
     ]
