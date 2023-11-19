@@ -23,8 +23,14 @@ router.post("/products", authMiddleware, async (req, res) => {
 // 상품 목록 조회 api
 router.get("/products", async (req, res) => {
   // queryString으로 정렬하기 위한 초식
-  const [key] = Object.keys(req.query);
-  const [value] = Object.values(req.query);
+  let { sort } = req.query;
+  sort = sort.toLowerCase();
+  let newSort = "";
+  if (sort === "desc" || sort === "asc") {
+    newSort = sort;
+  } else {
+    newSort = "desc";
+  }
   const sum = await Product.findAll({
     include: [
       {
@@ -34,7 +40,7 @@ router.get("/products", async (req, res) => {
     ],
     // 입력받은 key, value로 정렬하겠다.
     order: [
-      [key, value]
+      ["createdAt", newSort]
     ]
   });
   const productFile = sum.map(data => data.toJSON())
@@ -131,3 +137,52 @@ router.delete("/products/:productId/", authMiddleware, async (req, res) => {
 });
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+// // 상품 목록 조회 api
+// router.get("/products", async (req, res) => {
+//   // queryString으로 정렬하기 위한 초식
+//   const [key] = Object.keys(req.query);
+//   const [value] = Object.values(req.query);
+//   if(!key || !value) {
+//     res.status(400).json({
+//       errorMessage: "정렬을 선택해주세요"
+//     });
+//     return;
+//   }
+//   const sum = await Product.findAll({
+//     include: [
+//       {
+//         model: User,
+//         attributes: ['name'],
+//       }
+//     ],
+//     // 입력받은 key, value로 정렬하겠다.
+//     order: [
+//       [key, value]
+//     ]
+//   });
+//   const productFile = sum.map(data => data.toJSON())
+//   const newPrd = productFile.map(data => ({
+//     productId: data.productId,
+//     title: data.title,
+//     content: data.content,
+//     name: data.User.name,
+//     status: data.status,
+//     createdAt: data.createdAt,
+//   }))
+//   if(newPrd.length === 0) {
+//     res.status(400).json({
+//       errorMessage: "조회할 수 있는 상품목록이 없습니다."
+//     });
+//     return;
+//   }
+//   res.status(200).json({newPrd});
+// })
