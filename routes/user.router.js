@@ -76,7 +76,6 @@ router.post ("/auth", async (req, res)=> {
 
     // 데이터베이스에 저장된 해싱된 비밀번호와 입력된 password를 비교 match가 true면 일치
     const match = bcrypt.compareSync(password, user.password)
-    console.log(match)
     // 사용자가 존재하지 않거나
     // 입력받은 password와 사용자의 password가 다를 때 에러메시지가 발생해야 한다.
     if(!user || !match) {

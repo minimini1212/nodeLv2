@@ -14,7 +14,6 @@ router.post("/products", authMiddleware, async (req, res) => {
     return;
   }
   const userId = res.locals.user.userId;
-  console.log(userId);
   const status = "FOR_SALE";
   await Product.create({userId, title, content, status});
   res.status(200).json({message: "상품 등록에 성공하였습니다."});
