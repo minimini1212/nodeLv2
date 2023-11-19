@@ -2,4 +2,4 @@
 https://docs.google.com/spreadsheets/d/106bWkTi0OlpEsZhSACYHDNCz4g1sMxgo9Eq3dnIiIS4/edit?usp=sharing
 
 2.ERD 작성
-![erd](../../image/node_lv2_erd_image.jpg)
+https://www.erdcloud.com/d/JehGcpGhKWZNBMz3K
