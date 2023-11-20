@@ -16,7 +16,7 @@ router.post("/products", authMiddleware, async (req, res) => {
   const userId = res.locals.user.userId;
   const status = "FOR_SALE";
   await Product.create({userId, title, content, status});
-  res.status(200).json({message: "상품 등록에 성공하였습니다."});
+  res.status(201).json({message: "상품 등록에 성공하였습니다."});
 });
 
 // 상품 목록 조회 api
@@ -57,7 +57,7 @@ router.get("/products", async (req, res) => {
     });
     return;
   }
-  res.status(200).json({newPrd});
+  res.status(200).json({newPrd, message: "상품 목록 조회에 성공하였습니다."});
 })
 
 // 상품 상세 조회 api
